@@ -6,7 +6,9 @@
 --   /bga ab <lock|unlock|scale|show|hide|auto|reset>
 --   /bga wsg <lock|unlock|scale|show|hide|auto|reset>
 
-local ADDON_NAME = "BattlegroundAnnouncer"
+-- Must match the addon's actual folder / .toc name exactly (ADDON_LOADED's
+-- arg1 comparison is case-sensitive) - see BattleGroundAnnouncer.toc.
+local ADDON_NAME = "BattleGroundAnnouncer"
 
 BGADB = BGADB or {}
 BGADB.ab = BGADB.ab or {}
@@ -149,7 +151,12 @@ do
     local ShowNodeWheel, ShowNumberWheel
 
     local resetOverlay = CreateFrame("Button", "BGA_AB_ResetOverlay", UIParent)
-    resetOverlay:SetFrameStrata("FULLSCREEN")
+    -- BACKGROUND is the lowest strata: it still catches clicks on bare
+    -- screen space (to back out of the submenu) but never outranks real
+    -- UI - action bars, minimap, other addons - so it can't swallow
+    -- clicks meant for them the way FULLSCREEN did (mainFrame itself
+    -- stays on top either way, since it's FULLSCREEN_DIALOG below).
+    resetOverlay:SetFrameStrata("BACKGROUND")
     resetOverlay:SetAllPoints(UIParent)
     resetOverlay:EnableMouse(true)
     resetOverlay:RegisterForClicks("LeftButtonUp", "RightButtonUp")
@@ -482,7 +489,12 @@ do
     local ShowMainMenu, ShowOffenseMenu, ShowDefenseMenu
 
     local resetOverlay = CreateFrame("Button", "BGA_WSG_ResetOverlay", UIParent)
-    resetOverlay:SetFrameStrata("FULLSCREEN")
+    -- BACKGROUND is the lowest strata: it still catches clicks on bare
+    -- screen space (to back out of the submenu) but never outranks real
+    -- UI - action bars, minimap, other addons - so it can't swallow
+    -- clicks meant for them the way FULLSCREEN did (mainFrame itself
+    -- stays on top either way, since it's FULLSCREEN_DIALOG below).
+    resetOverlay:SetFrameStrata("BACKGROUND")
     resetOverlay:SetAllPoints(UIParent)
     resetOverlay:EnableMouse(true)
     resetOverlay:RegisterForClicks("LeftButtonUp", "RightButtonUp")

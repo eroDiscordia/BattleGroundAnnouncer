@@ -2,7 +2,7 @@
 ## Title: BattleGround Announcer
 ## Notes: Arathi Basin and Warsong Gulch caller. /bga ab ... and /bga wsg ... control each panel; buttons post callouts to /bg.
 ## Author: Chuckles
-## Version: 2.1.1
+## Version: 2.1.3
 ## SavedVariables: BGADB
 
-BattlegroundAnnouncer.lua
+BattleGroundAnnouncer.lua
